@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ManfredHair Games</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #1a1a1a;
+            font-family: Arial, sans-serif;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+        }
+        
+        .logo {
+            height: 50px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        
+        .title {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .game-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            height: calc(100vh - 70px);
+            overflow: hidden;
+        }
+        
+        .game-item {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .game-item:hover {
+            transform: scale(1.5);
+            z-index: 10;
+        }
+        
+        .game-icon {
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Animation for pushing other icons */
+        .game-container:hover .game-item:not(:hover) {
+            transform: scale(0.9);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="logo.png" alt="ManfredHair Games" clas    s="logo">
+        <div class="title">ManfredHair Games</div>
+    </div>
+    
+    <div class="game-container" id="gameContainer"></div>
+
+    <script>
+        // Function to load games
+        async function loadGames() {
+            // This is a placeholder. In a real implementation, you would:
+            // 1. Read the games directory
+            // 2. Load each game's logo.png and link.txt
+            // For demo purposes, we'll create sample games
+            
+            const sampleGames = [
+                { name: "Game 1", logo: "./games/pufferpong.png", link: "https://manfredhair.github.io/puffer-pong/" },
+                { name: "Game 2", logo: "./games/toastergame.png", link: "http://manfredhair.github.io/toaster-launch/" },
+                { name: "Game 3", logo: "./games/crabdash.png", link: "https://manfredhair.github.io/crab-dash/" },
+                { name: "Game 4", logo: "./games/crazyasstyping.png", link: "https://manfredhair.github.io/crazy-ass-typing-game/" },
+            ];
+            
+            const container = document.getElementById('gameContainer');
+            
+            // Calculate how many game items we need to fill the screen
+            const containerWidth = container.clientWidth;
+            const containerHeight = container.clientHeight;
+            const itemWidth = 96; // 80px + 16px margin
+            const itemHeight = 96; // 80px + 16px margin
+            
+            const columns = Math.floor(containerWidth / itemWidth);
+            const rows = Math.floor(containerHeight / itemHeight);
+            const totalNeeded = columns * rows;
+            
+            // Fill the container with games, repeating if necessary
+            for (let i = 0; i < totalNeeded; i++) {
+                const gameIndex = i % sampleGames.length;
+                const game = sampleGames[gameIndex];
+                
+                const gameItem = document.createElement('div');
+                gameItem.className = 'game-item';
+                
+                const gameLink = document.createElement('a');
+                gameLink.href = game.link;
+                gameLink.target = "_blank"; // Open in a new tab
+                
+                const gameIcon = document.createElement('img');
+                gameIcon.src = game.logo;
+                gameIcon.alt = game.name;
+                gameIcon.className = 'game-icon';
+                
+                gameLink.appendChild(gameIcon);
+                gameItem.appendChild(gameLink);
+                container.appendChild(gameItem);
+            }
+        }
+        
+        // Load games when the page is ready
+        document.addEventListener('DOMContentLoaded', loadGames);
+    </script>
+</body>
+</html>
