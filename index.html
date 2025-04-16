@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ManfredHair Games</title>
+    <link rel="icon" href="logo.png">
     <style>
         body {
             margin: 0;
@@ -21,9 +22,9 @@
         }
         
         .logo {
-            height: 50px;
-            margin-right: 10px;
-            vertical-align: middle;
+            height: 250px;
+            position: absolute; /* Position the logo absolutely */
+            z-index: 10; /* Ensure it appears above other elements */
         }
         
         .title {
@@ -34,11 +35,13 @@
         }
         
         .game-container {
+            position: relative; /* Make it relative for absolute positioning of logo */
+            width: 100vw; /* Full width */
+            height: 100vh; /* Full height */
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            padding: 20px;
-            height: calc(100vh - 70px);
+            padding: 0; /* Remove padding to cover the whole screen */
             overflow: hidden;
         }
         
@@ -71,7 +74,7 @@
 </head>
 <body>
     <div class="header">
-        <img src="logo.png" alt="ManfredHair Games" clas    s="logo">
+        <img src="logo.png" alt="ManfredHair Games" class="logo">
         <div class="title">ManfredHair Games</div>
     </div>
     
@@ -80,11 +83,6 @@
     <script>
         // Function to load games
         async function loadGames() {
-            // This is a placeholder. In a real implementation, you would:
-            // 1. Read the games directory
-            // 2. Load each game's logo.png and link.txt
-            // For demo purposes, we'll create sample games
-            
             const sampleGames = [
                 { name: "Game 1", logo: "./games/pufferpong.png", link: "https://manfredhair.github.io/puffer-pong/" },
                 { name: "Game 2", logo: "./games/toastergame.png", link: "http://manfredhair.github.io/toaster-launch/" },
@@ -125,6 +123,11 @@
                 gameItem.appendChild(gameLink);
                 container.appendChild(gameItem);
             }
+
+            // Randomly position the logo
+            const logo = document.querySelector('.logo');
+            logo.style.top = `${Math.random() * (window.innerHeight - 50)}px`; // Adjust for logo height
+            logo.style.left = `${Math.random() * (window.innerWidth - 50)}px`; // Adjust for logo width
         }
         
         // Load games when the page is ready
